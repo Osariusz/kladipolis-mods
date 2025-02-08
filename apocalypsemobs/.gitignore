@@ -44,5 +44,6 @@ build
 **/saves
 **/eclipse/
 **/runs/
+**/libs/
 
 **/out/

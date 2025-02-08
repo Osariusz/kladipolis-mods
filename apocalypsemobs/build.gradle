@@ -112,27 +112,18 @@ configurations {
 }
 
 dependencies {
-    // Example optional mod dependency with JEI
-    // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
-    // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
-    // compileOnly "mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}"
-    // We add the full version to localRuntime, not runtimeOnly, so that we do not publish a dependency on it
-    // localRuntime "mezz.jei:jei-${mc_version}-neoforge:${jei_version}"
+    //TODO: add so the files download automatically
+    compileOnly files("libs/minecolonies-${minecolonies_version}-${minecraft_version}-snapshot.jar")
+    runtimeOnly files("libs/minecolonies-${minecolonies_version}-${minecraft_version}-snapshot.jar")
 
-    // Example mod dependency using a mod jar from ./libs with a flat dir repository
-    // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
-    // The group id is ignored when searching -- in this case, it is "blank"
-    // implementation "blank:coolmod-${mc_version}:${coolmod_version}"
+    compileOnly files("libs/blockui-1.0.195-1.21.1-snapshot.jar")
+    runtimeOnly files("libs/blockui-1.0.195-1.21.1-snapshot.jar")
 
-    // Example mod dependency using a file as dependency
-    // implementation files("libs/coolmod-${mc_version}-${coolmod_version}.jar")
+    compileOnly files("libs/domum_ornamentum-1.0.204-1.21.1-snapshot.jar")
+    runtimeOnly files("libs/domum_ornamentum-1.0.204-1.21.1-snapshot.jar")
 
-    // Example project dependency using a sister or child project:
-    // implementation project(":myproject")
-
-    // For more info:
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+    compileOnly files("libs/structurize-1.0.758-1.21.1-snapshot.jar")
+    runtimeOnly files("libs/structurize-1.0.758-1.21.1-snapshot.jar")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
