@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.makrowave.kladipolis_util.Mixins",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "EnchantingTableMixin"
+  ],
+  "client": [
+
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
