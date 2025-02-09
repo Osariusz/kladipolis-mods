@@ -1,6 +1,7 @@
 package kladipolis.apocalypsemobs;
 
 import kladipolis.apocalypsemobs.entity.RedSkeleton;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.SkeletonModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -104,11 +105,11 @@ public class apocalypsemobs
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class RedSkeletonRenderer extends MobRenderer<RedSkeleton, SkeletonModel<RedSkeleton>> {
+    public static class RedSkeletonRenderer extends MobRenderer<RedSkeleton, HumanoidModel<RedSkeleton>> {
         private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(MODID, "textures/entity/red_skeleton.png");
 
         public RedSkeletonRenderer(EntityRendererProvider.Context context) {
-            super(context, new SkeletonModel<>(context.bakeLayer(ModelLayers.SKELETON)), 0.5F);
+            super(context, new HumanoidModel<>(context.bakeLayer(ModelLayers.SKELETON)), 0.5F);
             this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
         }
 

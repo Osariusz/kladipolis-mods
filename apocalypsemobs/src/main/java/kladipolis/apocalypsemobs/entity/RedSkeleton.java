@@ -1,5 +1,8 @@
 package kladipolis.apocalypsemobs.entity;
 
+import com.minecolonies.core.colony.managers.CitizenManager;
+import com.minecolonies.core.entity.ai.workers.CitizenAI;
+import com.minecolonies.core.entity.citizen.EntityCitizen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -8,23 +11,29 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Stray;
+import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.neoforged.neoforge.event.EventHooks;
 
-public class RedSkeleton extends AbstractSkeleton {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class RedSkeleton extends Monster {
+    //work in progress pestilence
     private static final int TOTAL_CONVERSION_TIME = 300;
     private static final EntityDataAccessor<Boolean> DATA_STRAY_CONVERSION_ID;
     public static final String CONVERSION_TAG = "StrayConversionTime";
@@ -75,6 +84,30 @@ public class RedSkeleton extends AbstractSkeleton {
             } else {
                 this.inPowderSnowTime = -1;
                 this.setFreezeConverting(false);
+            }
+
+            final TargetingConditions t = TargetingConditions.forNonCombat().range(16.0).ignoreLineOfSight().ignoreInvisibilityTesting();
+            List<Class> livingsClasses = Arrays.asList(
+                    Player.class,
+                    EntityCitizen.class,
+                    Animal.class
+            );
+            List<? extends LivingEntity> nearbyInhabitants = new ArrayList<LivingEntity>();
+            for(Class livingClass : livingsClasses) {
+                nearbyInhabitants.addAll(
+                        RedSkeleton.this.level().getNearbyEntities(
+                                livingClass,
+                                t,
+                                RedSkeleton.this,
+                                RedSkeleton.this.getBoundingBox().inflate(16.0)
+                        )
+                );
+            }
+
+            for(LivingEntity player : nearbyInhabitants) {
+                if (!player.hasEffect(MobEffects.POISON)) {
+                    player.addEffect(new MobEffectInstance(MobEffects.POISON, 30, 0));
+                }
             }
         }
 
