@@ -1,7 +1,5 @@
 package kladipolis.apocalypsemobs.entity;
 
-import com.minecolonies.core.colony.managers.CitizenManager;
-import com.minecolonies.core.entity.ai.workers.CitizenAI;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,11 +14,9 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
@@ -39,6 +35,15 @@ public class RedSkeleton extends Monster {
     public static final String CONVERSION_TAG = "StrayConversionTime";
     private int inPowderSnowTime;
     private int conversionTime;
+
+    public final List<Class<? extends LivingEntity>> POISONABLE_MOBS = Arrays.asList(
+            Player.class,
+            EntityCitizen.class,
+            Pig.class,
+            Cow.class,
+            Sheep.class,
+            Chicken.class
+    );
 
     public RedSkeleton(EntityType<? extends RedSkeleton> entityType, Level level) {
         super(entityType, level);
@@ -67,6 +72,31 @@ public class RedSkeleton extends Monster {
         return this.isFreezeConverting();
     }
 
+    public List<? extends LivingEntity> getNearbyPoisonableEntities() {
+        List<? extends LivingEntity> nearbyInhabitants = new ArrayList<>();
+        for(Class poisonableClass : POISONABLE_MOBS) {
+            nearbyInhabitants.addAll(getNearbyOfType(poisonableClass));
+        }
+        return nearbyInhabitants;
+    }
+
+    public <T extends LivingEntity> List<T> getNearbyOfType(Class<T> livingClass) {
+        final TargetingConditions t = TargetingConditions.forNonCombat().range(16.0).ignoreLineOfSight().ignoreInvisibilityTesting();
+        return RedSkeleton.this.level().getNearbyEntities(
+                        livingClass,
+                        t,
+                        RedSkeleton.this,
+                        RedSkeleton.this.getBoundingBox().inflate(16.0));
+    }
+
+    public void applyPoisonNearby() {
+        for(LivingEntity player : getNearbyPoisonableEntities()) {
+            if (!player.hasEffect(MobEffects.POISON)) {
+                player.addEffect(new MobEffectInstance(MobEffects.POISON, 30, 0));
+            }
+        }
+    }
+
     public void tick() {
         if (!this.level().isClientSide && this.isAlive() && !this.isNoAi()) {
             if (this.isInPowderSnow) {
@@ -85,30 +115,7 @@ public class RedSkeleton extends Monster {
                 this.inPowderSnowTime = -1;
                 this.setFreezeConverting(false);
             }
-
-            final TargetingConditions t = TargetingConditions.forNonCombat().range(16.0).ignoreLineOfSight().ignoreInvisibilityTesting();
-            List<Class> livingsClasses = Arrays.asList(
-                    Player.class,
-                    EntityCitizen.class,
-                    Animal.class
-            );
-            List<? extends LivingEntity> nearbyInhabitants = new ArrayList<LivingEntity>();
-            for(Class livingClass : livingsClasses) {
-                nearbyInhabitants.addAll(
-                        RedSkeleton.this.level().getNearbyEntities(
-                                livingClass,
-                                t,
-                                RedSkeleton.this,
-                                RedSkeleton.this.getBoundingBox().inflate(16.0)
-                        )
-                );
-            }
-
-            for(LivingEntity player : nearbyInhabitants) {
-                if (!player.hasEffect(MobEffects.POISON)) {
-                    player.addEffect(new MobEffectInstance(MobEffects.POISON, 30, 0));
-                }
-            }
+            applyPoisonNearby();
         }
 
         super.tick();
