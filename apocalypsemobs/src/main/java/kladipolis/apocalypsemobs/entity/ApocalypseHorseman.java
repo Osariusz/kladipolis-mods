@@ -47,7 +47,6 @@ public abstract class ApocalypseHorseman extends PathfinderMob implements IColon
     final protected static double STEP_HEIGHT = 1.0F;
     final protected static double SAFE_FALL_DISTANCE = 300;
 
-    //TODO: disable fall damage
     public ApocalypseHorseman(EntityType<? extends ApocalypseHorseman> entityType, Level level) {
         super(entityType, level);
     }
