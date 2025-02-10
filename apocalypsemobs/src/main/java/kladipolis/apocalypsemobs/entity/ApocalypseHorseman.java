@@ -4,6 +4,7 @@ import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.util.BlockPosUtil;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
 import kladipolis.apocalypsemobs.goal.FindCityCenterGoal;
+import kladipolis.apocalypsemobs.goal.FindEntityGroupGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.TicketType;
@@ -37,10 +38,10 @@ public abstract class ApocalypseHorseman extends PathfinderMob implements IColon
     }
 
     protected void registerGoals() {
+        //TODO: add swimming
         this.goalSelector.addGoal(CRUCIAL_PRIORITY, new MeleeAttackGoal(this, 1.0F, false));
         this.targetSelector.addGoal(CRUCIAL_PRIORITY, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(CRUCIAL_PRIORITY, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.targetSelector.addGoal(CRUCIAL_PRIORITY, new NearestAttackableTargetGoal<>(this, EntityCitizen.class, true));
         addBehaviourGoals();
         this.goalSelector.addGoal(OPTIONAL_PRIORITY, new FindCityCenterGoal<>(this));
 

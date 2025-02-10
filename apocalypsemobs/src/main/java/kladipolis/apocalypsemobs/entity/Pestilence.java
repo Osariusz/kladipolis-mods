@@ -3,8 +3,10 @@ package kladipolis.apocalypsemobs.entity;
 import com.minecolonies.api.IMinecoloniesAPI;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
+import kladipolis.apocalypsemobs.EntityFindHandler;
 import kladipolis.apocalypsemobs.MinecoloniesAPIHandler;
 import kladipolis.apocalypsemobs.apocalypsemobs;
+import kladipolis.apocalypsemobs.goal.FindEntityGroupGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -54,7 +56,7 @@ public class Pestilence extends ApocalypseHorseman {
 
     @Override
     protected void addBehaviourGoals() {
-        //TODO: poison goals
+        this.targetSelector.addGoal(CRUCIAL_PRIORITY, new FindEntityGroupGoal<>(this, POISONABLE_MOBS, true));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -85,25 +87,9 @@ public class Pestilence extends ApocalypseHorseman {
         return 16;
     }
 
-    public List<LivingEntity> getNearbyPoisonableEntities() {
-        List<LivingEntity> nearbyInhabitants = new ArrayList<>();
-        for(Class<? extends LivingEntity> poisonableClass : POISONABLE_MOBS) {
-            nearbyInhabitants.addAll(getNearbyOfType(poisonableClass));
-        }
-        return nearbyInhabitants;
-    }
-
-    public <T extends LivingEntity> List<T> getNearbyOfType(Class<T> livingClass) {
-        final TargetingConditions t = TargetingConditions.forNonCombat().range(getEffectRange()).ignoreLineOfSight().ignoreInvisibilityTesting();
-        return Pestilence.this.level().getNearbyEntities(
-                        livingClass,
-                        t,
-                        Pestilence.this,
-                        Pestilence.this.getBoundingBox().inflate(getEffectRange()));
-    }
-
     public void applyPoisonNearby() {
-        for(LivingEntity player : getNearbyPoisonableEntities()) {
+        EntityFindHandler entityFindHandler = new EntityFindHandler(this, getEffectRange());
+        for(LivingEntity player : entityFindHandler.getNearbyPoisonableEntities(POISONABLE_MOBS)) {
             if (!player.hasEffect(MobEffects.POISON)) {
                 player.addEffect(new MobEffectInstance(MobEffects.POISON, EFFECT_DURATION, EFFECT_AMPLIFIER));
             }

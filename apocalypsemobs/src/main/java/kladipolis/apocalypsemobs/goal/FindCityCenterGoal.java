@@ -19,6 +19,9 @@ public class FindCityCenterGoal<T extends PathfinderMob & IColonyBound> extends 
 
     @Override
     public boolean canUse() {
+        if (this.mob.getRandom().nextInt(reducedTickDelay(100)) != 0) {
+            return false;
+        }
         return true;
     }
 
