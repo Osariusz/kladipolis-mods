@@ -16,6 +16,9 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ChunkPos;
@@ -26,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
+//TODO: test spider AI
 public abstract class ApocalypseHorseman extends PathfinderMob implements IColonyBound {
 
     protected IColony colony;
@@ -39,6 +43,8 @@ public abstract class ApocalypseHorseman extends PathfinderMob implements IColon
     final protected static double ATTACK_KNOCKBACK = 1.5D;
     final protected static double MOVEMENT_SPEED = 0.25D;
     final protected static double KNOCKBACK_RESISTANCE = 0.9;
+    final protected static double JUMP_STRENGTH = 0.7;
+    final protected static double STEP_HEIGHT = 1.0F;
     final protected static double SAFE_FALL_DISTANCE = 300;
 
     //TODO: disable fall damage
@@ -66,6 +72,8 @@ public abstract class ApocalypseHorseman extends PathfinderMob implements IColon
                 .add(Attributes.ATTACK_KNOCKBACK, ATTACK_KNOCKBACK)
                 .add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
                 .add(Attributes.KNOCKBACK_RESISTANCE, KNOCKBACK_RESISTANCE)
+                .add(Attributes.JUMP_STRENGTH, JUMP_STRENGTH)
+                .add(Attributes.STEP_HEIGHT, STEP_HEIGHT)
                 .add(Attributes.SAFE_FALL_DISTANCE, SAFE_FALL_DISTANCE);
     }
 
