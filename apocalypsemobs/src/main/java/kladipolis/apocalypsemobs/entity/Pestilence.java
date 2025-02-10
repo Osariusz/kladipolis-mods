@@ -38,7 +38,7 @@ public class Pestilence extends ApocalypseHorseman {
     final int EFFECT_DURATION = 30;
     final int EFFECT_AMPLIFIER = 0;
 
-    //TODO: Add farmland replacement and progress bars for goals
+    //TODO: progress bars for goals
     public static final List<Class<? extends LivingEntity>> POISONABLE_MOBS = Arrays.asList(
             Player.class,
             EntityCitizen.class,
@@ -54,7 +54,7 @@ public class Pestilence extends ApocalypseHorseman {
 
     @Override
     protected void addBehaviourGoals() {
-        //TODO: Find farmland and poison goals
+        //TODO: poison goals
     }
 
     public static AttributeSupplier.Builder createAttributes() {
