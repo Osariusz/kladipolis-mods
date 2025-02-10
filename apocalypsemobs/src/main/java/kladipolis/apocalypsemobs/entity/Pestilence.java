@@ -46,9 +46,9 @@ public class Pestilence extends ApocalypseHorseman {
         return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, (double)0.25F);
     }
 
-    public List<? extends LivingEntity> getNearbyPoisonableEntities() {
-        List<? extends LivingEntity> nearbyInhabitants = new ArrayList<>();
-        for(Class poisonableClass : POISONABLE_MOBS) {
+    public List<LivingEntity> getNearbyPoisonableEntities() {
+        List<LivingEntity> nearbyInhabitants = new ArrayList<>();
+        for(Class<? extends LivingEntity> poisonableClass : POISONABLE_MOBS) {
             nearbyInhabitants.addAll(getNearbyOfType(poisonableClass));
         }
         return nearbyInhabitants;
