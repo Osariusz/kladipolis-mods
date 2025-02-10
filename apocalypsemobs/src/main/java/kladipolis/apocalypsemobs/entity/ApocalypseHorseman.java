@@ -2,6 +2,7 @@ package kladipolis.apocalypsemobs.entity;
 
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.util.BlockPosUtil;
+import com.minecolonies.core.entity.citizen.EntityCitizen;
 import kladipolis.apocalypsemobs.goal.FindCityCenterGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -26,6 +27,9 @@ import java.util.Set;
 public abstract class ApocalypseHorseman extends PathfinderMob implements IColonyBound {
 
     protected IColony colony;
+    final protected int CRUCIAL_PRIORITY = 2;
+    final protected int PROGRESSION_PRIORITY = 3;
+    final protected int OPTIONAL_PRIORITY = 64;
 
     //TODO: disable fall damage
     public ApocalypseHorseman(EntityType<? extends ApocalypseHorseman> entityType, Level level) {
@@ -33,12 +37,13 @@ public abstract class ApocalypseHorseman extends PathfinderMob implements IColon
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, (double)1.0F, false));
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this, new Class[0]));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, (double)1.0F));
-        this.goalSelector.addGoal(1, new FindCityCenterGoal(this));
+        this.goalSelector.addGoal(CRUCIAL_PRIORITY, new MeleeAttackGoal(this, 1.0F, false));
+        this.targetSelector.addGoal(CRUCIAL_PRIORITY, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(CRUCIAL_PRIORITY, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(CRUCIAL_PRIORITY, new NearestAttackableTargetGoal<>(this, EntityCitizen.class, true));
         addBehaviourGoals();
+        this.goalSelector.addGoal(OPTIONAL_PRIORITY, new FindCityCenterGoal<>(this));
+
     }
 
     protected abstract void addBehaviourGoals();
