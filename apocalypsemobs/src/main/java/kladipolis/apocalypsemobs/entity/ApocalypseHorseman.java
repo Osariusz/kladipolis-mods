@@ -41,9 +41,7 @@ public abstract class ApocalypseHorseman extends PathfinderMob {
 
     protected abstract void addBehaviourGoals();
 
-    public static void spawnEvent(LivingDamageEvent.Post event) {
-        System.out.println("Spawn event base");
-    }
+    public static void spawnEvent(LivingDamageEvent.Post event) {}
 
     public void initialize(IColony colony) {
         this.colony = colony;

@@ -1,6 +1,9 @@
 package kladipolis.apocalypsemobs.entity;
 
+import com.minecolonies.api.IMinecoloniesAPI;
+import com.minecolonies.api.colony.IColony;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
+import kladipolis.apocalypsemobs.MinecoloniesAPIHandler;
 import kladipolis.apocalypsemobs.apocalypsemobs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -59,15 +62,17 @@ public class Pestilence extends ApocalypseHorseman {
     }
 
     public static void spawnEvent(LivingDamageEvent.Post event) {
-        System.out.println("Spawn event child");
-        for(Class<? extends LivingEntity> mobClass : POISONABLE_MOBS) { //TODO: add finding player and animals colonies
-            if(event.getEntity() instanceof EntityCitizen citizen) { //event.getEntity().getClass().equals(mobClass)) {
+        for(Class<? extends LivingEntity> mobClass : POISONABLE_MOBS) {
+            if(event.getEntity().getClass().equals(mobClass)) {
+                IColony entityColony = MinecoloniesAPIHandler.getEntityColony(event.getEntity());
+                if(entityColony == null) {
+                    return;
+                }
+                BlockPos colonyPosition = entityColony.getCenter();
                 Random random = new Random();
                 int r = random.nextInt(5);
                 if(r == 4) {
-                    Pestilence pestilence = apocalypsemobs.RED_SKELETON.get().spawn((ServerLevel)event.getEntity().level(), event.getEntity().blockPosition(), MobSpawnType.EVENT);
-                    //pestilence.colony = citizen.getCitizenColonyHandler().getColony();
-                    //pestilence.teleportToColony();
+                    Pestilence pestilence = apocalypsemobs.RED_SKELETON.get().spawn((ServerLevel)event.getEntity().level(), colonyPosition, MobSpawnType.EVENT);
                 }
             }
         }
