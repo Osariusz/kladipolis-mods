@@ -90,15 +90,7 @@ public class apocalypsemobs
     public static class EntityAttributes {
         @SubscribeEvent
         public static void registerAttributes(EntityAttributeCreationEvent event) {
-            event.put(RED_SKELETON.get(), createRedSkeletonAttributes().build());
-        }
-
-        private static AttributeSupplier.Builder createRedSkeletonAttributes() {
-            return Monster.createMonsterAttributes()
-                    .add(Attributes.MAX_HEALTH, 20.0D)
-                    .add(Attributes.ATTACK_DAMAGE, 3.0D)
-                    .add(Attributes.ATTACK_SPEED, 1.0D)
-                    .add(Attributes.MOVEMENT_SPEED, 0.25D);
+            event.put(RED_SKELETON.get(), Pestilence.createMobAttributes().build());
         }
     }
 

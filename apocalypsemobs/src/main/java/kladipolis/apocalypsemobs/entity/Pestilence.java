@@ -20,15 +20,13 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.animal.Chicken;
-import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.animal.Pig;
-import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,10 +57,6 @@ public class Pestilence extends ApocalypseHorseman {
         this.targetSelector.addGoal(CRUCIAL_PRIORITY, new FindEntityGroupGoal<>(this, POISONABLE_MOBS, true));
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, (double)0.25F);
-    }
-
     public static void spawnEvent(LivingDamageEvent.Post event) {
         for(Class<? extends LivingEntity> mobClass : POISONABLE_MOBS) {
             if(event.getEntity().getClass().equals(mobClass)) {
@@ -81,6 +75,11 @@ public class Pestilence extends ApocalypseHorseman {
                 }
             }
         }
+    }
+
+    public static AttributeSupplier.@NotNull Builder createMobAttributes() {
+        AttributeSupplier.Builder builder = ApocalypseHorseman.createMobAttributes();
+        return builder;
     }
 
     public int getEffectRange() {

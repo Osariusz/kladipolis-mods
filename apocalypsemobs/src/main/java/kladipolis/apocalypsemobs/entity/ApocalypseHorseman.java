@@ -22,6 +22,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
@@ -31,6 +32,14 @@ public abstract class ApocalypseHorseman extends PathfinderMob implements IColon
     final protected int CRUCIAL_PRIORITY = 2;
     final protected int PROGRESSION_PRIORITY = 3;
     final protected int OPTIONAL_PRIORITY = 64;
+
+    final protected static double MAX_HEALTH = 100.0D;
+    final protected static double ATTACK_DAMAGE = 5.0D;
+    final protected static double ATTACK_SPEED = 1.5D;
+    final protected static double ATTACK_KNOCKBACK = 1.5D;
+    final protected static double MOVEMENT_SPEED = 0.25D;
+    final protected static double KNOCKBACK_RESISTANCE = 0.9;
+    final protected static double SAFE_FALL_DISTANCE = 300;
 
     //TODO: disable fall damage
     public ApocalypseHorseman(EntityType<? extends ApocalypseHorseman> entityType, Level level) {
@@ -48,6 +57,17 @@ public abstract class ApocalypseHorseman extends PathfinderMob implements IColon
     }
 
     protected abstract void addBehaviourGoals();
+
+    public static AttributeSupplier.@NotNull Builder createMobAttributes() {
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH, MAX_HEALTH)
+                .add(Attributes.ATTACK_DAMAGE, ATTACK_DAMAGE)
+                .add(Attributes.ATTACK_SPEED, ATTACK_SPEED)
+                .add(Attributes.ATTACK_KNOCKBACK, ATTACK_KNOCKBACK)
+                .add(Attributes.MOVEMENT_SPEED, MOVEMENT_SPEED)
+                .add(Attributes.KNOCKBACK_RESISTANCE, KNOCKBACK_RESISTANCE)
+                .add(Attributes.SAFE_FALL_DISTANCE, SAFE_FALL_DISTANCE);
+    }
 
     public static void spawnEvent(LivingDamageEvent.Post event) {}
 
@@ -73,11 +93,6 @@ public abstract class ApocalypseHorseman extends PathfinderMob implements IColon
 
             teleportTo(world, (double)position.getX(), (double)position.getY(), (double)position.getZ(), Set.of(), getYRot(), getXRot());
         }
-    }
-
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, (double)0.25F);
     }
 
     protected SoundEvent getAmbientSound() {
