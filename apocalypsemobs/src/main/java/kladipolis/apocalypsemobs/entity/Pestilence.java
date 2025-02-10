@@ -73,6 +73,9 @@ public class Pestilence extends ApocalypseHorseman {
                 int r = random.nextInt(5);
                 if(r == 4) {
                     Pestilence pestilence = apocalypsemobs.RED_SKELETON.get().spawn((ServerLevel)event.getEntity().level(), colonyPosition, MobSpawnType.EVENT);
+                    if(pestilence != null) {
+                        pestilence.initialize(entityColony);
+                    }
                 }
             }
         }
@@ -108,7 +111,6 @@ public class Pestilence extends ApocalypseHorseman {
     }
 
     public void tick() {
-        System.out.println(this.goalSelector.getAvailableGoals());
         if (!this.level().isClientSide && this.isAlive() && !this.isNoAi()) {
             applyPoisonNearby();
         }

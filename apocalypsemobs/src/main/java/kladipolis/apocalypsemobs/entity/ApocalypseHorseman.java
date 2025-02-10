@@ -2,6 +2,7 @@ package kladipolis.apocalypsemobs.entity;
 
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.util.BlockPosUtil;
+import kladipolis.apocalypsemobs.goal.FindCityCenterGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.TicketType;
@@ -22,7 +23,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
 import java.util.Set;
 
-public abstract class ApocalypseHorseman extends PathfinderMob {
+public abstract class ApocalypseHorseman extends PathfinderMob implements IColonyBound {
 
     protected IColony colony;
 
@@ -36,6 +37,7 @@ public abstract class ApocalypseHorseman extends PathfinderMob {
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this, new Class[0]));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, (double)1.0F));
+        this.goalSelector.addGoal(1, new FindCityCenterGoal(this));
         addBehaviourGoals();
     }
 
@@ -86,6 +88,10 @@ public abstract class ApocalypseHorseman extends PathfinderMob {
 
     protected SoundEvent getStepSound() {
         return SoundEvents.SKELETON_STEP;
+    }
+
+    public IColony getColony() {
+        return colony;
     }
 
 }
