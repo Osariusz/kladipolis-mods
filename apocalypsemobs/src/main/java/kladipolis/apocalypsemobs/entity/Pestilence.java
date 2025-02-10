@@ -23,6 +23,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Pestilence extends ApocalypseHorseman {
+
+    final int EFFECT_DURATION = 30;
+    final int EFFECT_AMPLIFIER = 0;
+
     //TODO: Add farmland replacement and progress bars for goals
     public final List<Class<? extends LivingEntity>> POISONABLE_MOBS = Arrays.asList(
             Player.class,
@@ -46,6 +50,10 @@ public class Pestilence extends ApocalypseHorseman {
         return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, (double)0.25F);
     }
 
+    public int getEffectRange() {
+        return 16;
+    }
+
     public List<LivingEntity> getNearbyPoisonableEntities() {
         List<LivingEntity> nearbyInhabitants = new ArrayList<>();
         for(Class<? extends LivingEntity> poisonableClass : POISONABLE_MOBS) {
@@ -55,18 +63,18 @@ public class Pestilence extends ApocalypseHorseman {
     }
 
     public <T extends LivingEntity> List<T> getNearbyOfType(Class<T> livingClass) {
-        final TargetingConditions t = TargetingConditions.forNonCombat().range(16.0).ignoreLineOfSight().ignoreInvisibilityTesting();
+        final TargetingConditions t = TargetingConditions.forNonCombat().range(getEffectRange()).ignoreLineOfSight().ignoreInvisibilityTesting();
         return Pestilence.this.level().getNearbyEntities(
                         livingClass,
                         t,
                         Pestilence.this,
-                        Pestilence.this.getBoundingBox().inflate(16.0));
+                        Pestilence.this.getBoundingBox().inflate(getEffectRange()));
     }
 
     public void applyPoisonNearby() {
         for(LivingEntity player : getNearbyPoisonableEntities()) {
             if (!player.hasEffect(MobEffects.POISON)) {
-                player.addEffect(new MobEffectInstance(MobEffects.POISON, 30, 0));
+                player.addEffect(new MobEffectInstance(MobEffects.POISON, EFFECT_DURATION, EFFECT_AMPLIFIER));
             }
         }
     }
