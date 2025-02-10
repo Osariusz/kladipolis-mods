@@ -1,12 +1,11 @@
 package kladipolis.apocalypsemobs;
 
-import kladipolis.apocalypsemobs.entity.RedSkeleton;
+import kladipolis.apocalypsemobs.entity.ApocalypseHorseman;
+import kladipolis.apocalypsemobs.entity.Pestilence;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.SkeletonModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -14,7 +13,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Skeleton;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -76,16 +74,8 @@ public class apocalypsemobs
     // Creates a new BlockItem with the id "apocalypsemobs:example_block", combining the namespace and path
     public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
 
-    public static final DeferredHolder<EntityType<?>, EntityType<RedSkeleton>> RED_SKELETON = ENTITIES.register("red_skeleton",
-            () -> {
-        EntityType<RedSkeleton> t = EntityType.Builder.of(RedSkeleton::new, MobCategory.MONSTER).sized(0.6F, 1.99F).eyeHeight(1.74F).ridingOffset(-0.7F).clientTrackingRange(8).build("red_skeleton");
-
-        System.out.println("siema");
-        System.out.println(t);
-        System.out.println(t.getCategory());
-
-        return t;
-        }
+    public static final DeferredHolder<EntityType<?>, EntityType<Pestilence>> RED_SKELETON = ENTITIES.register("pestilence",
+            () -> EntityType.Builder.of(Pestilence::new, MobCategory.MONSTER).sized(0.6F, 1.99F).eyeHeight(1.74F).ridingOffset(-0.7F).clientTrackingRange(8).build("pestilence")
         );
 
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD)
@@ -105,7 +95,7 @@ public class apocalypsemobs
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class RedSkeletonRenderer extends MobRenderer<RedSkeleton, HumanoidModel<RedSkeleton>> {
+    public static class RedSkeletonRenderer extends MobRenderer<ApocalypseHorseman, HumanoidModel<ApocalypseHorseman>> {
         private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(MODID, "textures/entity/red_skeleton.png");
 
         public RedSkeletonRenderer(EntityRendererProvider.Context context) {
@@ -114,7 +104,7 @@ public class apocalypsemobs
         }
 
         @Override
-        public ResourceLocation getTextureLocation(RedSkeleton entity) {
+        public ResourceLocation getTextureLocation(ApocalypseHorseman entity) {
             return TEXTURE;
         }
     }
