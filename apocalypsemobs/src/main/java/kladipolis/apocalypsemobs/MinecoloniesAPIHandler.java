@@ -4,15 +4,11 @@ import com.minecolonies.api.MinecoloniesAPIProxy;
 import com.minecolonies.api.colony.ICitizen;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.colony.permissions.Action;
-import com.minecolonies.api.colony.permissions.Rank;
-import com.minecolonies.api.util.Utils;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MinecoloniesAPIHandler {
@@ -34,6 +30,7 @@ public class MinecoloniesAPIHandler {
     }
 
     public static IColony nearbyColony(LivingEntity entity) {
+        //TODO: rewrite to use minecolonies closest colony in API
         List<IColony> allColonies = MinecoloniesAPIProxy.getInstance().getColonyManager().getAllColonies();
         Stream<IColony> allColoniesStream = allColonies.stream().filter((IColony colony) -> colony.getCenter().distSqr(entity.blockPosition()) <= MAX_NEARBY_COLONY_RANGE);
         return allColoniesStream.min(
