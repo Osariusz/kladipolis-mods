@@ -46,6 +46,7 @@ public abstract class ApocalypseHorseman extends PathfinderMob implements IColon
     final protected static double JUMP_STRENGTH = 0.7;
     final protected static double STEP_HEIGHT = 1.0F;
     final protected static double SAFE_FALL_DISTANCE = 300;
+    final protected static int TICKS_FOR_RESPAWN = 500;
 
     public ApocalypseHorseman(EntityType<? extends ApocalypseHorseman> entityType, Level level) {
         super(entityType, level);

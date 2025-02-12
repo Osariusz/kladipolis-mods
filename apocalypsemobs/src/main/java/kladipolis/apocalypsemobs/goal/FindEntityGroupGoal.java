@@ -53,7 +53,6 @@ public class FindEntityGroupGoal<T extends LivingEntity> extends TargetGoal {
     protected void findTarget() {
         EntityFindHandler entityFindHandler = new EntityFindHandler(mob, SEARCH_RADIUS);
         targets = entityFindHandler.getNearbyPoisonableEntities(targetTypes);
-        System.out.println(targets.size());
     }
 
     public BlockPos getTargetsAveragePosition() {

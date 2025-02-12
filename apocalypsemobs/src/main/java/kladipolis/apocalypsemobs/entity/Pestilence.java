@@ -3,11 +3,12 @@ package kladipolis.apocalypsemobs.entity;
 import com.minecolonies.api.IMinecoloniesAPI;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
-import kladipolis.apocalypsemobs.EntityFindHandler;
-import kladipolis.apocalypsemobs.MinecoloniesAPIHandler;
-import kladipolis.apocalypsemobs.apocalypsemobs;
+import com.sun.jna.platform.win32.COM.util.Factory;
+import kladipolis.apocalypsemobs.*;
 import kladipolis.apocalypsemobs.goal.FindEntityGroupGoal;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -32,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import static kladipolis.apocalypsemobs.apocalypsemobs.TIME_SINCE_APOCALYPSE_DEATH_STRING;
 
 public class Pestilence extends ApocalypseHorseman {
 
@@ -58,6 +61,12 @@ public class Pestilence extends ApocalypseHorseman {
     }
 
     public static void spawnEvent(LivingDamageEvent.Post event) {
+        WorldData data = WorldDataManager.get(event.getEntity().level().getServer().overworld());
+        CompoundTag myData = data.getData();
+        int counter = myData.getInt(TIME_SINCE_APOCALYPSE_DEATH_STRING);
+        if(counter < TICKS_FOR_RESPAWN) {
+            return;
+        }
         for(Class<? extends LivingEntity> mobClass : POISONABLE_MOBS) {
             if(event.getEntity().getClass().equals(mobClass)) {
                 IColony entityColony = MinecoloniesAPIHandler.getEntityColony(event.getEntity());
@@ -95,9 +104,19 @@ public class Pestilence extends ApocalypseHorseman {
         }
     }
 
+    public void zeroDeathCounter() {
+        //TODO: add only your colony handling
+        WorldData data = WorldDataManager.get(this.level().getServer().overworld());
+        CompoundTag myData = data.getData();
+        CompoundTag newData = myData.copy();
+        newData.putInt(TIME_SINCE_APOCALYPSE_DEATH_STRING, 0);
+        data.updateData(newData);
+    }
+
     public void tick() {
         if (!this.level().isClientSide && this.isAlive() && !this.isNoAi()) {
             applyPoisonNearby();
+            zeroDeathCounter();
         }
         super.tick();
     }

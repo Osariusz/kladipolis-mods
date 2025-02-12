@@ -2,6 +2,7 @@ package kladipolis.apocalypsemobs;
 
 import com.minecolonies.api.IMinecoloniesAPI;
 import com.minecolonies.api.MinecoloniesAPIProxy;
+import com.minecolonies.api.entity.ai.statemachine.tickratestatemachine.TickingEvent;
 import com.minecolonies.core.colony.eventhooks.citizenEvents.AbstractCitizenEvent;
 import com.minecolonies.core.colony.eventhooks.citizenEvents.CitizenDiedEvent;
 import com.minecolonies.core.entity.citizen.citizenhandlers.CitizenDiseaseHandler;
@@ -12,6 +13,7 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -24,6 +26,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -86,12 +89,24 @@ public class apocalypsemobs
             () -> EntityType.Builder.of(Pestilence::new, MobCategory.MONSTER).sized(0.6F, 1.99F).eyeHeight(1.74F).ridingOffset(-0.7F).clientTrackingRange(8).build("pestilence")
         );
 
+    public static final String TIME_SINCE_APOCALYPSE_DEATH_STRING = "timeSinceApocalypsedeath";
+
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD)
     public static class EntityAttributes {
         @SubscribeEvent
         public static void registerAttributes(EntityAttributeCreationEvent event) {
             event.put(RED_SKELETON.get(), Pestilence.createMobAttributes().build());
         }
+    }
+
+    @SubscribeEvent
+    public void onServerTick(ServerTickEvent.Post event) {
+        WorldData data = WorldDataManager.get(event.getServer().overworld());
+        CompoundTag myData = data.getData();
+        int counter = myData.getInt(TIME_SINCE_APOCALYPSE_DEATH_STRING);
+        CompoundTag newData = myData.copy();
+        newData.putInt(TIME_SINCE_APOCALYPSE_DEATH_STRING, counter+1);
+        data.updateData(newData);
     }
 
     @SubscribeEvent

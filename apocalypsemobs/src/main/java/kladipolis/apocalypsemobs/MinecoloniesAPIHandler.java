@@ -32,7 +32,7 @@ public class MinecoloniesAPIHandler {
     public static IColony nearbyColony(LivingEntity entity) {
         //TODO: rewrite to use minecolonies closest colony in API
         List<IColony> allColonies = MinecoloniesAPIProxy.getInstance().getColonyManager().getAllColonies();
-        Stream<IColony> allColoniesStream = allColonies.stream().filter((IColony colony) -> colony.getCenter().distSqr(entity.blockPosition()) <= MAX_NEARBY_COLONY_RANGE);
+        Stream<IColony> allColoniesStream = allColonies.stream().filter((IColony colony) -> colony.getCenter().distSqr(entity.blockPosition()) <= MAX_NEARBY_COLONY_RANGE*MAX_NEARBY_COLONY_RANGE);
         return allColoniesStream.min(
                 Comparator.comparingDouble((IColony colony) -> colony.getCenter().distSqr(entity.blockPosition()))).orElse(null);
     }
@@ -45,6 +45,7 @@ public class MinecoloniesAPIHandler {
             return getPlayerColony(player);
         }
         else {
+
             return nearbyColony(entity);
         }
     }
