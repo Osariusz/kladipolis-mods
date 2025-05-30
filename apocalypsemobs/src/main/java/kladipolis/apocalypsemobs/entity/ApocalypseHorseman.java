@@ -3,9 +3,12 @@ package kladipolis.apocalypsemobs.entity;
 import com.minecolonies.api.colony.IColony;
 import com.minecolonies.api.util.BlockPosUtil;
 import com.minecolonies.core.entity.citizen.EntityCitizen;
+import kladipolis.apocalypsemobs.WorldData;
+import kladipolis.apocalypsemobs.WorldDataManager;
 import kladipolis.apocalypsemobs.goal.FindCityCenterGoal;
 import kladipolis.apocalypsemobs.goal.FindEntityGroupGoal;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.TicketType;
 import net.minecraft.sounds.SoundEvent;
@@ -28,6 +31,8 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
+
+import static kladipolis.apocalypsemobs.apocalypsemobs.TIME_SINCE_APOCALYPSE_DEATH_STRING;
 
 //TODO: test spider AI
 public abstract class ApocalypseHorseman extends PathfinderMob implements IColonyBound {
@@ -75,6 +80,16 @@ public abstract class ApocalypseHorseman extends PathfinderMob implements IColon
                 .add(Attributes.JUMP_STRENGTH, JUMP_STRENGTH)
                 .add(Attributes.STEP_HEIGHT, STEP_HEIGHT)
                 .add(Attributes.SAFE_FALL_DISTANCE, SAFE_FALL_DISTANCE);
+    }
+
+    public static boolean canSpawn() {
+        WorldData data = WorldDataManager.get(event.getEntity().level().getServer().overworld());
+        CompoundTag myData = data.getData();
+        int counter = myData.getInt(TIME_SINCE_APOCALYPSE_DEATH_STRING);
+        if(counter < TICKS_FOR_RESPAWN) {
+            return false;
+        }
+        return true;
     }
 
     public static void spawnEvent(LivingDamageEvent.Post event) {}

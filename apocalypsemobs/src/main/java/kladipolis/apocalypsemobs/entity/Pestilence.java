@@ -61,12 +61,7 @@ public class Pestilence extends ApocalypseHorseman {
     }
 
     public static void spawnEvent(LivingDamageEvent.Post event) {
-        WorldData data = WorldDataManager.get(event.getEntity().level().getServer().overworld());
-        CompoundTag myData = data.getData();
-        int counter = myData.getInt(TIME_SINCE_APOCALYPSE_DEATH_STRING);
-        if(counter < TICKS_FOR_RESPAWN) {
-            return;
-        }
+
         for(Class<? extends LivingEntity> mobClass : POISONABLE_MOBS) {
             if(event.getEntity().getClass().equals(mobClass)) {
                 IColony entityColony = MinecoloniesAPIHandler.getEntityColony(event.getEntity());
