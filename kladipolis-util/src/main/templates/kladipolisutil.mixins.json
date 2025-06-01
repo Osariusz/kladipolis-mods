@@ -3,7 +3,10 @@
   "package": "com.makrowave.kladipolis_util.Mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "EnchantingTableMixin"
+    "EnchantingTableMixin",
+    "AnvilMenuMixin",
+    "AnvilMenuAccessor",
+    "ItemCombinerMenuAccessor"
   ],
   "client": [
 
