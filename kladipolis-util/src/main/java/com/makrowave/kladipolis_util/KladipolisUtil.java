@@ -55,7 +55,6 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
@@ -204,9 +203,18 @@ public class KladipolisUtil
     }
 
     private static class WrappedBiomeSource extends BiomeSource {
-        public static final MapCodec<WrappedBiomeSource> CODEC = Biome.CODEC.fieldOf("biome").xmap(WrappedBiomeSource::new, p_204259_ -> p_204259_).stable();
+        public static final MapCodec<WrappedBiomeSource> CODEC = RecordCodecBuilder.mapCodec(
+                instance -> instance.group(
+                        BiomeSource.CODEC.fieldOf("original").forGetter(w -> w.original)
+                ).apply(instance, WrappedBiomeSource::newWithCodec)
+        );
         private final BiomeSource original;
         private final ServerLevel level;
+
+        // Constructor used by codec (no ServerLevel, which is not serializable)
+        private static WrappedBiomeSource newWithCodec(BiomeSource original) {
+            return new WrappedBiomeSource(original, null);
+        }
 
         public WrappedBiomeSource(BiomeSource original, ServerLevel level) {
             super();
