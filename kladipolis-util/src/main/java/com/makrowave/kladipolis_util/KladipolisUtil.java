@@ -1,5 +1,12 @@
 package com.makrowave.kladipolis_util;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -33,6 +40,23 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
+import java.lang.reflect.Field;
+import java.util.*;
+
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(KladipolisUtil.MODID)
@@ -81,6 +105,8 @@ public class KladipolisUtil
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
+
+
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (KladipolisUtil) to respond directly to events.
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
@@ -88,6 +114,8 @@ public class KladipolisUtil
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
+
+        NeoForge.EVENT_BUS.addListener(this::onServerStart);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -119,6 +147,34 @@ public class KladipolisUtil
     {
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
+        System.out.println("HEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        System.out.println(event.getServer().getAllLevels());
+        event.getServer().getAllLevels().forEach(level -> {
+            try {
+                ChunkGenerator generator = level.getChunkSource().getGenerator();
+
+                // Find the correct biomeSource field by type
+                Field biomeSourceField = null;
+                for (Field field : ChunkGenerator.class.getDeclaredFields()) {
+                    if (field.getType() == BiomeSource.class) {
+                        biomeSourceField = field;
+                        biomeSourceField.setAccessible(true);
+                        break;
+                    }
+                }
+
+                if (biomeSourceField != null) {
+                    biomeSourceField.set(generator,
+                            new WrappedBiomeSource(generator.getBiomeSource(), level)
+                    );
+                } else {
+                    throw new RuntimeException("Failed to find biomeSource field in ChunkGenerator");
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
@@ -133,4 +189,57 @@ public class KladipolisUtil
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
     }
+
+    private static final List<ResourceLocation> REPLACEMENTS = new ArrayList(List.of(
+        ResourceLocation.parse("minecraft:taiga")
+    ));
+
+//    private static final List<ResourceLocation>> REPLACEMENTS = Collections .of(
+//            ResourceLocation.parse("minecraft:taiga")
+//    );
+
+    @SubscribeEvent
+    private void onServerStart(ServerAboutToStartEvent event) {
+
+    }
+
+    private static class WrappedBiomeSource extends BiomeSource {
+        public static final MapCodec<WrappedBiomeSource> CODEC = Biome.CODEC.fieldOf("biome").xmap(WrappedBiomeSource::new, p_204259_ -> p_204259_).stable();
+        private final BiomeSource original;
+        private final ServerLevel level;
+
+        public WrappedBiomeSource(BiomeSource original, ServerLevel level) {
+            super();
+            this.original = original;
+            this.level = level;
+        }
+
+        @Override
+        public Holder<Biome> getNoiseBiome(int x, int y, int z, Climate.Sampler sampler) {
+            System.out.println("HELLO OOOOOOOOOOOOOOOOO");
+            Holder<Biome> biome = original.getNoiseBiome(x, y, z, sampler);
+            if (y < 64) {
+                Holder<Biome> surfaceBiome = original.getNoiseBiome(x, 255, z, sampler);
+                System.out.println(biome.getRegisteredName());
+                System.out.println(surfaceBiome.getRegisteredName());
+                System.out.println("eee");
+                if(REPLACEMENTS.contains(surfaceBiome)) {
+                    return surfaceBiome;
+                }
+            }
+            return biome;
+        }
+
+        @Override
+        protected MapCodec<? extends BiomeSource> codec() {
+            return CODEC;
+        }
+
+        @Override
+        protected Stream<Holder<Biome>> collectPossibleBiomes() {
+            return original.possibleBiomes().stream();
+        }
+
+    }
+
 }
