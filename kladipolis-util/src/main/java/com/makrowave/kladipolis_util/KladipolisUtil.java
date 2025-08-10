@@ -1,5 +1,7 @@
 package com.makrowave.kladipolis_util;
 
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -198,6 +200,8 @@ public class KladipolisUtil {
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+
+            ItemBlockRenderTypes.setRenderLayer(FIRE_GLEAM_BLOCK.get(), RenderType.CUTOUT);
         }
     }
 }
