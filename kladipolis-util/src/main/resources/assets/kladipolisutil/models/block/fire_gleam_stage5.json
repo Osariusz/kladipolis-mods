@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/crop",
   "textures": {
-    "crop": "kladipolisutil:block/fire_gleam_stage0"
+    "crop": "kladipolisutil:block/fire_gleam_stage5"
   }
 }
