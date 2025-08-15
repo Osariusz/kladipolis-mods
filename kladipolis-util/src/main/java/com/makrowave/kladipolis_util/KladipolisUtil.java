@@ -1,5 +1,7 @@
 package com.makrowave.kladipolis_util;
 
+import com.makrowave.kladipolis_util.Blocks.FireGleam;
+import com.makrowave.kladipolis_util.Items.FireGleamSeeds;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -64,70 +66,8 @@ public class KladipolisUtil {
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "kladipolisutil" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final DeferredBlock<Block> FIRE_GLEAM_BLOCK = BLOCKS.register("fire_gleam", () -> new CropBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)) {
-        private final ResourceKey<Biome> VOLCANIC_CRATER = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("terralith", "volcanic_crater"));
-        private final ResourceKey<Biome> VOLCANIC_PEAKS = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("terralith", "volcanic_peaks"));
-
-        @Override
-        public int getMaxAge() {
-            return 7;
-        }
-
-        @Override
-        public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-            int age = state.getValue(this.getAgeProperty());
-            if (age >= getMaxAge()) {
-                return false;
-            }
-            ResourceKey<Biome> biome = level.getBiome(pos).unwrapKey().orElse(null);
-            return biome != null && (biome.equals(VOLCANIC_CRATER) || biome.equals(VOLCANIC_PEAKS));
-        }
-
-
-        @Override
-        public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-            ResourceKey<Biome> biome = level.getBiome(pos).unwrapKey().orElse(null);
-            if (biome != null && (biome.equals(VOLCANIC_CRATER) || biome.equals(VOLCANIC_PEAKS))) {
-                super.randomTick(state, level, pos, random);
-            }
-        }
-
-        @Override
-        public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-            List<ItemStack> drops = new ArrayList<>();
-            int age = state.getValue(this.getAgeProperty());
-            RandomSource random = builder.getLevel().random;
-            if (age >= getMaxAge()) {
-                if (random.nextFloat() < 0.5f) {
-                    drops.add(new ItemStack(FIRE_GLEAM.get()));
-                }
-                int seeds = 1 + random.nextInt(2);
-                for (int i = 0; i < seeds; i++) {
-                    drops.add(new ItemStack(FIRE_GLEAM_SEEDS.get()));
-                }
-            } else {
-                drops.add(new ItemStack(FIRE_GLEAM_SEEDS.get()));
-            }
-            return drops;
-        }
-    });
-
-    public static final DeferredItem<Item> FIRE_GLEAM_SEEDS = ITEMS.register("fire_gleam_seeds", () -> new ItemNameBlockItem(FIRE_GLEAM_BLOCK.get(), new Item.Properties()) {
-        private final ResourceKey<Biome> VOLCANIC_CRATER = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("terralith", "volcanic_crater"));
-        private final ResourceKey<Biome> VOLCANIC_PEAKS = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("terralith", "volcanic_peaks"));
-
-        @Override
-        public InteractionResult useOn(UseOnContext context) {
-            Level level = context.getLevel();
-            BlockPos pos = context.getClickedPos().relative(context.getClickedFace());
-            ResourceKey<Biome> biome = level.getBiome(pos).unwrapKey().orElse(null);
-            if (biome != null && (biome.equals(VOLCANIC_CRATER) || biome.equals(VOLCANIC_PEAKS))) {
-                return super.useOn(context);
-            }
-            return InteractionResult.FAIL;
-        }
-    });
-
+    public static final DeferredBlock<Block> FIRE_GLEAM_BLOCK = BLOCKS.register("fire_gleam", () -> new FireGleam(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
+    public static final DeferredItem<Item> FIRE_GLEAM_SEEDS = ITEMS.register("fire_gleam_seeds", () -> new FireGleamSeeds(FIRE_GLEAM_BLOCK.get(), new Item.Properties()));
     public static final DeferredItem<Item> FIRE_GLEAM = ITEMS.register("fire_gleam", () -> new Item(new Item.Properties()));
 
     // Creates a creative tab with the id "kladipolisutil:example_tab" for the example item, that is placed after the combat tab
