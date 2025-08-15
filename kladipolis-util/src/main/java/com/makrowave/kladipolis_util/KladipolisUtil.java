@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.storage.loot.LootParams;
+import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -134,6 +135,15 @@ public class KladipolisUtil {
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
 
             ItemBlockRenderTypes.setRenderLayer(FIRE_GLEAM_BLOCK.get(), RenderType.CUTOUT);
+        }
+    }
+
+    @SubscribeEvent
+    public void onFurnaceFuelBurnTime(FurnaceFuelBurnTimeEvent event) {
+        if (event.getItemStack().is(FIRE_GLEAM.get().asItem())) {
+            event.setBurnTime(1600);
+        } else if (event.getItemStack().is(FIRE_GLEAM_SEEDS.get())) {
+            event.setBurnTime(50);
         }
     }
 }

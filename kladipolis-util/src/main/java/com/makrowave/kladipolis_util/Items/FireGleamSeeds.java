@@ -27,4 +27,5 @@ public class FireGleamSeeds extends ItemNameBlockItem {
         }
         return InteractionResult.FAIL;
     }
+
 }
