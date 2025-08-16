@@ -1,6 +1,7 @@
 package com.makrowave.kladipolis_util;
 
 import com.makrowave.kladipolis_util.Blocks.FireGleam;
+import com.makrowave.kladipolis_util.Blocks.FireGleamFarmland;
 import com.makrowave.kladipolis_util.Items.FireGleamSeeds;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -68,6 +69,7 @@ public class KladipolisUtil {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public static final DeferredBlock<Block> FIRE_GLEAM_BLOCK = BLOCKS.register("fire_gleam", () -> new FireGleam(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> FIRE_GLEAM_FARMLAND_BLOCK = BLOCKS.register("fire_gleam_farmland", () -> new FireGleamFarmland(BlockBehaviour.Properties.ofFullCopy(Blocks.FARMLAND)));
     public static final DeferredItem<Item> FIRE_GLEAM_SEEDS = ITEMS.register("fire_gleam_seeds", () -> new FireGleamSeeds(FIRE_GLEAM_BLOCK.get(), new Item.Properties()));
     public static final DeferredItem<Item> FIRE_GLEAM = ITEMS.register("fire_gleam", () -> new Item(new Item.Properties()));
 
@@ -135,6 +137,7 @@ public class KladipolisUtil {
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
 
             ItemBlockRenderTypes.setRenderLayer(FIRE_GLEAM_BLOCK.get(), RenderType.CUTOUT);
+            ItemBlockRenderTypes.setRenderLayer(FIRE_GLEAM_FARMLAND_BLOCK.get(), RenderType.CUTOUT);
         }
     }
 

@@ -1,5 +1,7 @@
 {
-  "itemGroup.kladipolisutil": "Example Mod Tab",
-  "block.kladipolisutil.example_block": "Example Block",
-  "item.kladipolisutil.example_item": "Example Item"
+  "itemGroup.kladipolisutil": "Kladipolis Utilities",
+  "block.kladipolisutil.fire_gleam": "Fire Gleam",
+  "item.kladipolisutil.fire_gleam": "Fire Gleam",
+  "item.kladipolisutil.fire_gleam_seeds": "Fire Gleam Seeds",
+  "block.kladipolisutil.fire_gleam_farmland": "Fire Gleam Farmland"
 }
