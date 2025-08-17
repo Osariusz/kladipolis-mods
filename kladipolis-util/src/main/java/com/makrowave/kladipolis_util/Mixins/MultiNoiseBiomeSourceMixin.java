@@ -1,4 +1,4 @@
-package com.makrowave.kladipolis_util.Mixins;
+package com.makrowave.kladipolis_util.mixins;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;

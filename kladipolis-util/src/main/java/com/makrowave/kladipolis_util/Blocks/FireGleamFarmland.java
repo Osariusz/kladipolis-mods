@@ -1,4 +1,4 @@
-package com.makrowave.kladipolis_util.Blocks;
+package com.makrowave.kladipolis_util.blocks;
 
 import com.makrowave.kladipolis_util.Constants;
 import net.minecraft.core.BlockPos;

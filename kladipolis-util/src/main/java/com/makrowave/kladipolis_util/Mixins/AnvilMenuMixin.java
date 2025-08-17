@@ -1,4 +1,4 @@
-package com.makrowave.kladipolis_util.Mixins;
+package com.makrowave.kladipolis_util.mixins;
 
 import com.mojang.logging.LogUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;

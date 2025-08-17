@@ -1,4 +1,4 @@
-package com.makrowave.kladipolis_util.Mixins;
+package com.makrowave.kladipolis_util.mixins;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;

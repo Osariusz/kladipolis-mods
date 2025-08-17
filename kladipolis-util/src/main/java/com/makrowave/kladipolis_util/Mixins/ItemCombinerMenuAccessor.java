@@ -1,4 +1,4 @@
-package com.makrowave.kladipolis_util.Mixins;
+package com.makrowave.kladipolis_util.mixins;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;

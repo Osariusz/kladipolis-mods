@@ -1,25 +1,13 @@
 package com.makrowave.kladipolis_util;
 
-import com.makrowave.kladipolis_util.Blocks.FireGleam;
-import com.makrowave.kladipolis_util.Blocks.FireGleamFarmland;
+import com.makrowave.kladipolis_util.blocks.FireGleam;
+import com.makrowave.kladipolis_util.blocks.FireGleamFarmland;
 import com.makrowave.kladipolis_util.Items.FireGleamSeeds;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.level.storage.loot.LootParams;
 import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import org.slf4j.Logger;
 
@@ -29,7 +17,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -44,15 +31,11 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.minecraft.world.item.context.UseOnContext;
-import java.util.ArrayList;
-import java.util.List;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(KladipolisUtil.MODID)
