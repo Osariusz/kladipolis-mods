@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "/S/",
+    "WSW",
     "SES",
-    "/S/"
+    "WSW"
   ],
   "key": {
-    "/": {
-      "item": "c:rods/wooden"
+    "W": {
+      "item": "minecraft:stick"
     },
     "S": {
       "item": "minecraft:string"

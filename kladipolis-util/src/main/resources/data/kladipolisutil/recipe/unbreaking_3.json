@@ -10,7 +10,7 @@
       "tag": "c:plates/steel"
     },
     "B": {
-      "tag": "c:storage_blocks/aluminium"
+      "tag": "c:storage_blocks/aluminum"
     },
     "E": {
       "item": "kladipolisutil:equipment_upgrade_3"

@@ -10,7 +10,7 @@
       "tag": "c:plates/steel"
     },
     "A": {
-      "tag": "c:ingots/aluminium"
+      "tag": "c:ingots/aluminum"
     },
     "E": {
       "item": "kladipolisutil:equipment_upgrade_1"

@@ -24,7 +24,7 @@
     "count": 1,
     "components": {
       "minecraft:stored_enchantments": {
-        "minecraft:projectile_protection": 4
+        "minecraft:blast_protection": 4
       }
     }
   }

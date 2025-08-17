@@ -12,6 +12,9 @@
     "R": {
       "item": "farmersdelight:rope"
     },
+    "T": {
+      "item": "immersiveengineering:stick_treated"
+    },
     "E": {
       "item": "kladipolisutil:equipment_upgrade_5"
     }
