@@ -4,9 +4,9 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "EnchantingTableMixin",
+    "AnvilMenuAccessor",
     "AnvilMenuMixin",
     "MultiNoiseBiomeSourceMixin",
-    "AnvilMenuAccessor",
     "ItemCombinerMenuAccessor"
   ],
   "client": [

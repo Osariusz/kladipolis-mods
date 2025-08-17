@@ -1,4 +1,4 @@
-package com.makrowave.kladipolis_util.mixins;
+package com.makrowave.kladipolis_util.Mixins;
 
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.DataSlot;

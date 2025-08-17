@@ -1,4 +1,4 @@
-package com.makrowave.kladipolis_util.blocks;
+package com.makrowave.kladipolis_util.Blocks;
 
 import com.makrowave.kladipolis_util.Constants;
 import net.minecraft.core.BlockPos;
@@ -17,8 +17,8 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.makrowave.kladipolis_util.KladipolisUtil.FIRE_GLEAM;
-import static com.makrowave.kladipolis_util.KladipolisUtil.FIRE_GLEAM_SEEDS;
+import static com.makrowave.kladipolis_util.Items.ItemRegisterService.FIRE_GLEAM;
+import static com.makrowave.kladipolis_util.Items.ItemRegisterService.FIRE_GLEAM_SEEDS;
 
 public class FireGleam extends CropBlock {
 
