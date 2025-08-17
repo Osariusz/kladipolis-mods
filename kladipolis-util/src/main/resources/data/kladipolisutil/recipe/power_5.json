@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TLT",
+    "RER",
+    "TLT"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:lead"
+    },
+    "R": {
+      "item": "farmersdelight:rope"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_5"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:power": 5
+      }
+    }
+  }
+}

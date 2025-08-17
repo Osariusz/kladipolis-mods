@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ACA",
+    "CEC",
+    "ACA"
+  ],
+  "key": {
+    "C": {
+      "item": "magistuarmory:steel_chainmail"
+    },
+    "A": {
+      "item": "minecraft:arrow"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_1"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:projectile_protection": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SRS",
+    "RER",
+    "SRS"
+  ],
+  "key": {
+    "S": {
+      "item": "c:rods/wooden"
+    },
+    "R": {
+      "item": "farmersdelight:rope"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_2"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:power": 2
+      }
+    }
+  }
+}

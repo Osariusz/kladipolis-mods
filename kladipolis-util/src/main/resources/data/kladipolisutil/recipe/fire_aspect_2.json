@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LBL",
+    "BEB",
+    "LBL"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:lava_bucket"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_2"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:fire_aspect": 2
+      }
+    }
+  }
+}

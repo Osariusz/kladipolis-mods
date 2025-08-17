@@ -3,5 +3,12 @@
   "block.kladipolisutil.fire_gleam": "Fire Gleam",
   "item.kladipolisutil.fire_gleam": "Fire Gleam",
   "item.kladipolisutil.fire_gleam_seeds": "Fire Gleam Seeds",
-  "block.kladipolisutil.fire_gleam_farmland": "Fire Gleam Farmland"
+  "block.kladipolisutil.fire_gleam_farmland": "Fire Gleam Farmland",
+
+  "item.kladipolisutil.equipment_upgrade_1": "Upgrade Template I",
+  "item.kladipolisutil.equipment_upgrade_2": "Upgrade Template II",
+  "item.kladipolisutil.equipment_upgrade_3": "Upgrade Template III",
+  "item.kladipolisutil.equipment_upgrade_4": "Upgrade Template IV",
+  "item.kladipolisutil.equipment_upgrade_5": "Upgrade Template V"
+
 }

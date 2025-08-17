@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "STS",
+    "TET",
+    "STS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:smooth_stone"
+    },
+    "T": {
+      "tag": "c:ingots/steel"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_5"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:sharpness": 5
+      }
+    }
+  }
+}

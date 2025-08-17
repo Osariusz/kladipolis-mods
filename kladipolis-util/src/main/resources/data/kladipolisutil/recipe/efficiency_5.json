@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "USU",
+    "SES",
+    "USU"
+  ],
+  "key": {
+    "U": {
+      "tag": "c:ingots/uranium"
+    },
+    "S": {
+      "tag": "c:storage_blocks/silver"
+    },
+
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_5"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:efficiency": 5
+      }
+    }
+  }
+}

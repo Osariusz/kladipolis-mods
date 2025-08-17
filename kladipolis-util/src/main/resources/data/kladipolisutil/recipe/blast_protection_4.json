@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NPN",
+    "CEC",
+    "NPN"
+  ],
+  "key": {
+    "C": {
+      "item": "magistuarmory:steel_chainmail"
+    },
+    "N": {
+      "tag": "c:storage_blocks/nickel"
+    },
+    "P": {
+      "tag": "c:plates/steel"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_4"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:projectile_protection": 4
+      }
+    }
+  }
+}

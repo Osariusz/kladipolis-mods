@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TPT",
+    "PEP",
+    "TPT"
+  ],
+  "key": {
+    "T": {
+      "item": "immersiveengineering:tough_fabric"
+    },
+    "P": {
+      "tag": "c:plates/steel"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_4"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:projectile_protection": 4
+      }
+    }
+  }
+}

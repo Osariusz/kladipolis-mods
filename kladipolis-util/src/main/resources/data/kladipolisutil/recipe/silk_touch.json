@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "SES",
+    "GGG"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:sponge"
+    },
+    "G": {
+      "tag": "c:glass_blocks"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_1"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:silk_touch": 1
+      }
+    }
+  }
+}

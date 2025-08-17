@@ -22,12 +22,30 @@ public class ItemRegisterService {
 
     public static final DeferredItem<Item> FIRE_GLEAM_SEEDS = ITEMS.register("fire_gleam_seeds",
             () -> new FireGleamSeeds(FIRE_GLEAM_BLOCK.get(), new Item.Properties()));
+
     public static final DeferredItem<Item> FIRE_GLEAM = ITEMS.register("fire_gleam",
             () -> new FuelItem(new Item.Properties(), 1600));
 
+    public static final DeferredItem<Item> EQUIPMENT_UPGRADE_1 = ITEMS.register("equipment_upgrade_1",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> EQUIPMENT_UPGRADE_2 = ITEMS.register("equipment_upgrade_2",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> EQUIPMENT_UPGRADE_3 = ITEMS.register("equipment_upgrade_3",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> EQUIPMENT_UPGRADE_4 = ITEMS.register("equipment_upgrade_4",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> EQUIPMENT_UPGRADE_5 = ITEMS.register("equipment_upgrade_5",
+            () -> new Item(new Item.Properties()));
+
+
     private static final List<DeferredItem<Item>> CREATIVE_TAB_ITEMS = List.of(
             FIRE_GLEAM_SEEDS,
-            FIRE_GLEAM
+            FIRE_GLEAM,
+            EQUIPMENT_UPGRADE_1,
+            EQUIPMENT_UPGRADE_2,
+            EQUIPMENT_UPGRADE_3,
+            EQUIPMENT_UPGRADE_4,
+            EQUIPMENT_UPGRADE_5
     );
 
 

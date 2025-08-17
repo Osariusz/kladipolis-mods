@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " H ",
+    " E ",
+    " H "
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:gold_hoe"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_1"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:sweeping_edge": 1
+      }
+    }
+  }
+}

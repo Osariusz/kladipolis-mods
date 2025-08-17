@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MCM",
+    "CEC",
+    "MCM"
+  ],
+  "key": {
+    "C": {
+      "item": "magistuarmory:steel_chainmail"
+    },
+    "M": {
+      "item": "minecraft:magma_cream"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_1"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:fire_protection": 1
+      }
+    }
+  }
+}

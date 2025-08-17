@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CPC",
+    "PEP",
+    "CPC"
+  ],
+  "key": {
+    "C": {
+      "item": "magistuarmory:steel_chainmail"
+    },
+    "P": {
+      "tag": "c:plates/steel"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_3"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:protection": 3
+      }
+    }
+  }
+}

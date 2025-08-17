@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " L ",
+    "WEW",
+    " L "
+  ],
+  "key": {
+    "L": {
+      "tag": "c:ingots/lead"
+    },
+    "W": {
+      "item": "minecraft:wind_charge"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_1"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:knockback": 1
+      }
+    }
+  }
+}

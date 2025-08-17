@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "APB",
+    "PEP",
+    "BPA"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:plates/steel"
+    },
+    "A": {
+      "tag": "c:ingots/aluminium"
+    },
+    "B": {
+      "tag": "c:storage_blocks/aluminium"
+    },
+    "E": {
+      "item": "kladipolisutil:equipment_upgrade_2"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "minecraft:unbreaking": 2
+      }
+    }
+  }
+}
