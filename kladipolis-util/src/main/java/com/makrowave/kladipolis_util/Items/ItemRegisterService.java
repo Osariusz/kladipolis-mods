@@ -36,6 +36,13 @@ public class ItemRegisterService {
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> EQUIPMENT_UPGRADE_5 = ITEMS.register("equipment_upgrade_5",
             () -> new Item(new Item.Properties()));
+    //Żkocja currency
+    public static final DeferredItem<Item> BLOONIK = ITEMS.register("bloonik",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> DABLOON = ITEMS.register("dabloon",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> MOABLOON = ITEMS.register("moabloon",
+            () -> new Item(new Item.Properties()));
 
 
     private static final List<DeferredItem<Item>> CREATIVE_TAB_ITEMS = List.of(
@@ -45,7 +52,10 @@ public class ItemRegisterService {
             EQUIPMENT_UPGRADE_2,
             EQUIPMENT_UPGRADE_3,
             EQUIPMENT_UPGRADE_4,
-            EQUIPMENT_UPGRADE_5
+            EQUIPMENT_UPGRADE_5,
+            BLOONIK,
+            DABLOON,
+            MOABLOON
     );
 
 

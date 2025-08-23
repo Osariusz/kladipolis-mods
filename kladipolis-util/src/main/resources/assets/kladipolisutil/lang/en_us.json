@@ -9,6 +9,10 @@
   "item.kladipolisutil.equipment_upgrade_2": "Upgrade Template II",
   "item.kladipolisutil.equipment_upgrade_3": "Upgrade Template III",
   "item.kladipolisutil.equipment_upgrade_4": "Upgrade Template IV",
-  "item.kladipolisutil.equipment_upgrade_5": "Upgrade Template V"
+  "item.kladipolisutil.equipment_upgrade_5": "Upgrade Template V",
+
+  "item.kladipolisutil.bloonik": "Bloonik",
+  "item.kladipolisutil.dabloon": "DaBloon",
+  "item.kladipolisutil.moabloon": "MoaBloon"
 
 }
