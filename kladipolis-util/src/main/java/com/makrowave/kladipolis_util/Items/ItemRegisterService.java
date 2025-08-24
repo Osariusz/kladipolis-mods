@@ -36,12 +36,19 @@ public class ItemRegisterService {
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> EQUIPMENT_UPGRADE_5 = ITEMS.register("equipment_upgrade_5",
             () -> new Item(new Item.Properties()));
-    //Żkocja currency
+    // Żkocja currency
     public static final DeferredItem<Item> BLOONIK = ITEMS.register("bloonik",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> DABLOON = ITEMS.register("dabloon",
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> MOABLOON = ITEMS.register("moabloon",
+            () -> new Item(new Item.Properties()));
+    // Dilfstone currency
+    public static final DeferredItem<Item> OBONG = ITEMS.register("obong",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> COBBY = ITEMS.register("cobby",
+            () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> DIOR = ITEMS.register("dior",
             () -> new Item(new Item.Properties()));
 
 
@@ -55,7 +62,10 @@ public class ItemRegisterService {
             EQUIPMENT_UPGRADE_5,
             BLOONIK,
             DABLOON,
-            MOABLOON
+            MOABLOON,
+            OBONG,
+            COBBY,
+            DIOR
     );
 
 
